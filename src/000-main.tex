@@ -1,0 +1,26 @@
+%
+% 000-main.tex ：　セクション分けの設定ファイル
+%                  単に分割ファイルを順番に読み込むだけのファイル
+%                  文章の構造を規定する
+%
+% 各種設定用ファイルの読み込み：ここのファイル名は決め打ちにさせてください
+%
+\input{src/001-settings}  % 資料毎にあまり変えない設定
+\input{src/002-variables} % 資料毎に変える設定
+%
+% ここから、各章毎に分割したソースファイルを順番に読込
+%
+\begin{document}
+%
+\maketitle                    % 表紙の出力指示(省略してもよい)
+\section{本ソフト/資料の目的} % セクション表紙の出力指示（省略してもよい)
+%
+\input{src/011-chapter1-1}    % 各章のファイルを読み込む
+%
+% あとは上記\section や、\inputを繰り返す
+%
+\input{src/021-chapter2-1}
+\input{src/081-references}
+\input{src/091-closing}
+%
+\end{document}

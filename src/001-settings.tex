@@ -1,0 +1,78 @@
+%
+%  LaTeX の文書クラスの指定
+%     (1) 漢字コードを unicodeに指定
+%     (2) 文字の基本フォントサイズを12ptに指定
+%     (3) 画面の縦横比を16:9に指定
+%           画面のエリアサイズを横160mm、縦90mmとする
+%           ほかに、aspectratio=1610 ： 縦横比16:10となる設定もできる
+%           aspectratio に何も指定しないと、デフォルトで4:3になる
+%     (4) 文章の種類をbeamerに指定
+%
+\documentclass[unicode,12pt,aspectratio=169]{beamer}
+%
+% 使用するパッケージ 
+%
+\usepackage{zxjatype}         % XeLaTeX で日本語の標準的な組版を行うためのパッケージ
+\usepackage[noto]{zxjafont}   % 日本語fontパッケージ
+\usepackage{graphicx}         % LaTeX ドキュメントに画像を挿入したり，テキストや図の拡大縮小・回転を行うためのパッケージ
+\usepackage{url}              % LaTeXの文章内にURLを貼りたいとき
+\usepackage{hyperref}         % TeX 文書（DVI、PDF など）に HTML と同じハイパーリンク 機能を加えるためのマクロ
+\usepackage{
+    amsmath, % 環境
+    amssymb, % 記号
+    amsfonts % 特殊文字
+}                             % amsmathの数式環境
+\usepackage{siunitx}          % LATEX で SI単位（国際単位系）を出力する
+\usepackage{enumitem}         % リスト環境のレイアウトを制御
+\usepackage{tikz}             % TeX 用の描画パッケージ
+\usetikzlibrary{positioning}  % ”positioning”ライブラリ
+%
+% デザインの選択
+%     ここではテーマとしてmetropolisを読込
+%
+\usetheme[
+    block=fill, % ブロックに背景をつける
+    numbering=fraction % 合計ページ数を表示
+]{metropolis}
+%
+% ここからはページの見え方の設定
+%
+% ページ番号
+\setbeamerfont{frame numbering}{size=\large}
+
+% CUD 配色の作成
+% cf. http://bit.ly/2G99WCG
+\definecolor{cud_blue}{rgb}{.109803922,.349019608,.682352941}
+\definecolor{cud_green}{rgb}{.282352941,.639215686,.407843137}
+\definecolor{cud_orange}{rgb}{.929411765,.564705882,.156862745}
+\definecolor{cud_lightgray}{rgb}{.784313725,.784313725,.796078431}
+
+% 基本色の変更
+\setbeamercolor{normal text}{fg=cud_blue}
+\setbeamercolor{example text}{fg=cud_green}
+\setbeamercolor{alerted text}{fg=cud_orange}
+
+% Navigation symbol は不要なので消す
+\setbeamertemplate{navigation symbols}{}
+%
+
+%footer修正
+\def\logoC{lowerleft.png}
+\def\logoD{lowerlight.png}
+\makeatletter
+\setbeamertemplate{footline}{
+    \begin{columns}[totalwidth=160mm]
+      \begin{column}{15mm}
+        \includegraphics[width=15mm, height=5mm]{src/images/\logoC}
+      \end{column}
+      \begin{column}{104mm}
+         {\scriptsize \color{cud_lightgray} \insertshortinstitute ／ \insertshortdate{} 　(\insertshortauthor) }
+      \end{column}
+      \begin{column}{16mm}
+         {\footnotesize \color{cud_orange} \rightline{ \insertframenumber{} / \inserttotalframenumber}}
+      \end{column}
+      \begin{column}{15mm}
+        \includegraphics[width=15mm, height=5mm]{src/images/\logoD}
+      \end{column}
+    \end{columns}
+}
