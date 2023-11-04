@@ -1,4 +1,4 @@
-# openCAE-slides
+# beamer-example
 
 
 
@@ -56,4 +56,4 @@ Let people know what your project can do specifically. Provide context and add a
 
 ## Author
 * 作成者 : ichmy55
-* 所属   : OpenCAE勉強会＠関西
+* 所属   : 
