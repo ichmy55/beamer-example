@@ -81,4 +81,4 @@ $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF))) : $(SRCS)
 	rm -f 000-main.*
 
 localclean:
-	rm -f  000-main.* dist/*
+	rm -f  000-main.* 
