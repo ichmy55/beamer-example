@@ -30,7 +30,8 @@ $ git clone --depth=1 https://github.com/ichmy55/beamer-example.git
 └── test......................（現在未使用)
 </pre>
 ## Usage
-make 一発で、docker環境の生成、docker環境へのソース転送、結果pdf生成し、同ファイルをdocker環境から引き出すところまで自動でやります
+make 一発で、docker環境の生成、docker環境へのソース転送、結果pdf生成し、同ファイルをdocker環境から引き出すところまで自動でやります  
+結果ファイルが「dist」ディレクトリに格納されますので、取り出してください
 
 ## License
 "beamer-example" の各ソースコードは [MIT license](https://ja.wikipedia.org/wiki/MIT_License) で配布します。  
