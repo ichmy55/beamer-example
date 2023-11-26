@@ -16,7 +16,21 @@ dockerとdocker-comopseのインストールをお願いします。
 $ git clone --depth=1 https://github.com/ichmy55/beamer-example.git
 ```
 
+## Directory tree
+上記展開すると以下のようなディレクトリ構成になります
+<pre>
+.
+├── Dockerfile
+├── Makefile
+├── README.md
+├── dist......................このディレクトリに結果pdfが生成されます
+├── docker-compose.yml
+├── src ......................このディレクトリにLatexのソースファイルを配置します
+│   └── images................このディレクトリにLatexから読み込む画像ファイルを配置します
+└── test......................（現在未使用)
+</pre>
 ## Usage
+make 一発で、docker環境の生成、docker環境へのソース転送、結果pdf生成し、同ファイルをdocker環境から引き出すところまで自動でやります
 
 ## License
 "beamer-example" の各ソースコードは [MIT license](https://ja.wikipedia.org/wiki/MIT_License) で配布します。  
