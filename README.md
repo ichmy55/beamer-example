@@ -1,4 +1,11 @@
 # beamer-example
+"beamer-example" は、自分の環境をなるだけ汚したくない方にも、beamerをお使いいただくための環境例です
+現時点では、本ソースを動かすコンピュータ環境はUbuntuを想定しています（将来は、他OSでも動作可能にする予定)
+docker上でソースを転送したうえでコンパイルすることで、母艦の環境を汚しません
+
+## Requirement
+dockerとdocker-comopseのインストールをお願いします。
+また、本ソースコードをダウンロードするためにgitもインストールお願いします
 
 ## Installation
 
