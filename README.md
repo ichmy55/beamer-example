@@ -1,58 +1,43 @@
 # beamer-example
+"beamer-example" は、自分の環境をなるだけ汚したくない方にも、beamerをお使いいただくための環境例です  
+docker上にソースを転送したうえでコンパイルすることで、母艦の環境を汚しません
 
-
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin http://gitlab.ichmy.0t0.jp/ichmy-g/ichmy-proj.git
-git branch -M main
-git push -uf origin main
-```
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Name
-oose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+## Requirement
+現時点では、本ソースを動かすコンピュータ環境はUbuntuを想定しています。  
+（将来的には、他OSでも動作可能にする予定)  
+dockerとdocker-comopseのインストールをお願いします。  
+また、本ソースコードをダウンロードするためにgitもインストールをお願いします。
 
 ## Installation
+適当な作業ディレクトリを作成し、本ソースをcloneしてください  
+最新版だけ必要なので、depth=1指定します  
 
+```
+$ git clone --depth=1 https://github.com/ichmy55/beamer-example.git
+```
+
+## Directory tree
+上記展開すると以下のようなディレクトリ構成になります
+<pre>
+.
+├── Dockerfile
+├── Makefile
+├── README.md
+├── dist......................このディレクトリに結果pdfが生成されます
+├── docker-compose.yml
+├── src ......................このディレクトリにLatexのソースファイルを配置します
+│   └── images................このディレクトリにLatexから読み込む画像ファイルを配置します
+└── test......................（現在未使用)
+</pre>
 ## Usage
+make 一発で、docker環境の生成、docker環境へのソース転送、結果pdf生成し、同ファイルをdocker環境から引き出すところまで自動でやります  
+結果ファイルが「dist」ディレクトリに格納されますので、取り出してください
+
+このあと、自分のpdfを作成するためのソースの変更方法などの詳細は、本ソフトで生成されたファイルが[本ソフトの取扱説明書](/dist/beamer-example.pdf)となりますので、参照ください
+
+## License
+"beamer-example" の各ソースコードは [MIT license](https://ja.wikipedia.org/wiki/MIT_License) で配布します。  
+また、このコードで生成されたファイルは、[本ソフトの取扱説明書](/dist/beamer-example.pdf)となっていて、[クリエイティブ・コモンズ・ライセンス](https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AA%E3%82%A8%E3%82%A4%E3%83%86%E3%82%A3%E3%83%96%E3%83%BB%E3%82%B3%E3%83%A2%E3%83%B3%E3%82%BA%E3%83%BB%E3%83%A9%E3%82%A4%E3%82%BB%E3%83%B3%E3%82%B9)表示 4.0 国際で配布します
 
 ## Author
 * 作成者 : ichmy55
