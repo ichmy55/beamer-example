@@ -3,6 +3,10 @@
 #
 COMPOSE := docker compose
 #
+# Latex エンジン
+#
+LATEXENG := lualatex
+#
 # 作成するスライド名
 #
 DEST_PDF := beamer-example
@@ -17,8 +21,7 @@ SRCS := $(wildcard  $(SRCDIR)/*.tex) $(wildcard $(SRCDIR)/images/*)
 #
 define F2
 $(2): $(1)
-	xelatex $(1)
-	xelatex $(1)
+	@$(LATEXENG)$(1)
 	mv main.pdf $(2)
 	rm -f main.*
 endef
@@ -75,10 +78,9 @@ localbuild: pdf-files
 pdf-files: $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF)))
 
 $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF))) : $(SRCS)
-	xelatex src/000-main.tex
-	xelatex src/000-main.tex
+	@$(LATEXENG) src/000-main.tex
 	mv 000-main.pdf $@
 	rm -f 000-main.*
 
 localclean:
-	rm -f  000-main.* 
+	rm -f  000-main.* dist/*
