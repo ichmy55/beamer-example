@@ -1,4 +1,7 @@
 #
+# Texをコンパイルする環境を作成する Makefile
+#
+#
 # Docker コマンドマクロ
 #
 COMPOSE := docker compose
@@ -13,8 +16,8 @@ DEST_PDF := beamer-example
 #
 # ソースファイル一覧
 #
-SRCDIR := src
-SRCS := $(wildcard  $(SRCDIR)/*.tex) $(wildcard $(SRCDIR)/images/*)
+SRCDIR := src/$(DEST_PDF)
+SRCS := $(wildcard  $(SRCDIR)/*.tex) $(wildcard src/images/*)
 
 #
 # Latex コンパイル方法の定義マクロ
@@ -29,7 +32,9 @@ endef
 #
 # ターゲット一覧
 #
-.PHONY: up ps stop down  clean build bash localbuild localclean localtest
+.PHONY: first up ps stop down  clean build bash localbuild localclean localup localtest
+#
+first: localbuild
 #
 # Docker compose 制御ターゲット
 #
@@ -57,7 +62,6 @@ clean:
 	@$(COMPOSE) exec -it beamer-example rm -rf *
 	@$(COMPOSE) cp Makefile beamer-example:/home/user/
 	@$(COMPOSE) cp src beamer-example:/home/user/src
-	@$(COMPOSE) exec -it beamer-example mkdir dist
 #
 # コンテナ上のビルド
 # 
@@ -78,9 +82,15 @@ localbuild: pdf-files
 pdf-files: $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF)))
 
 $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF))) : $(SRCS)
-	@$(LATEXENG) src/000-main.tex
+	make localclean
+	make localup
+	@$(LATEXENG) work/000-main.tex
+	@$(LATEXENG) work/000-main.tex
 	mv 000-main.pdf $@
 	rm -f 000-main.*
 
 localclean:
-	rm -f  000-main.* dist/*
+	rm -rf  000-main.* work dist; mkdir -p dist work
+
+localup:
+	cp -rL $(SRCDIR)/* work/
