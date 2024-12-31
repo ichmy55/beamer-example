@@ -1,7 +1,24 @@
 #
+# Texをコンパイルする環境を作成する Makefile
+#
+.ONESHELL:
+#
+# ターゲット一覧
+#
+.PHONY: help up up-package stop down ps bash build lint clean remotebuild remotelint remoteclean localbuild local-lint localclean distclean name localup diff
+.DEFAULT_GOAL := help
+#
 # Docker コマンドマクロ
 #
-COMPOSE := docker compose
+DOCKER := docker
+DOCKER_IMAGE  := ghcr.io/ichmy55/opencae-slides/texcomp:main
+DOCKER_NAME   := beamer-example
+PACKAGE_USE   := 0              # 標準では出来合いパッケージを使用せず、自前でDockerイメージを作る
+#
+# Latex エンジン
+#
+LATEXENG := lualatex
+BIBTEXENG := pbibtex
 #
 # Latex エンジン
 #
@@ -13,70 +30,138 @@ DEST_PDF := beamer-example
 #
 # ソースファイル一覧
 #
-SRCDIR := src
-SRCS := $(wildcard  $(SRCDIR)/*.tex) $(wildcard $(SRCDIR)/images/*)
+SRCDIR := src/$(DEST_PDF)
+SRCS   := $(wildcard  $(SRCDIR)/*.tex)  $(wildcard  $(SRCDIR)/*.bst)  $(wildcard  $(SRCDIR)/*.bib)
+SRCS2  := $(wildcard  $(SRCDIR)/images/*)
+SRCS3  := $(SRCS) $(SRCS2)
+DOCS   := $(wildcard  docs/*.md)
 
 #
-# Latex コンパイル方法の定義マクロ
-#
-define F2
-$(2): $(1)
-	@$(LATEXENG)$(1)
-	mv main.pdf $(2)
-	rm -f main.*
-endef
+# Makefile内で使用するshellを定義
+SHELL=/bin/bash
 
 #
-# ターゲット一覧
-#
-.PHONY: up ps stop down  clean build bash localbuild localclean localtest
+help: ## ヘルプを表示する
+	@echo "Example operations by makefile."
+	@echo ""
+	@echo "Usage: make SUB_COMMAND argument_name=argument_value"
+	@echo ""
+	@echo "Command list:"
+	@echo ""
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 #
 # Docker compose 制御ターゲット
 #
-# コンテナを初期設定します
-up:
-	@$(COMPOSE) up -d
-	make clean
+up: ## コンテナを初期化します
+	make down
+	rm -rf ltcache
+	mkdir ltcache
+	if [ $(PACKAGE_USE) -eq 1 ]; then 
+	  $(DOCKER) pull $(DOCKER_IMAGE)
+	  $(DOCKER) run -d -v $(PWD)/src:/home/ubuntu/src -v $(PWD)/rules:/home/ubuntu/rules  -v$(PWD)/ltcache:/home/ubuntu/.texlive2023 --name $(DOCKER_NAME) $(DOCKER_IMAGE)
+	else 
+	  $(DOCKER) build . -t $(DOCKER_NAME)
+	  $(DOCKER) run -d -v $(PWD)/src:/home/ubuntu/src -v $(PWD)/rules:/home/ubuntu/rules  -v$(PWD)/ltcache:/home/ubuntu/.texlive2023 --name $(DOCKER_NAME) $(DOCKER_NAME)
+	fi
+	make remoteclean
+	$(DOCKER) exec -it $(DOCKER_NAME) luaotfload-tool --update
 #
-# コンテナを確認します
-ps:
-	@$(COMPOSE) ps
+up-package: ## コンテナを初期化します（出来合いのパッケージを使います）
+	PACKAGE_USE   := 1
+	make up
 #
-# コンテナの停止
-stop:
-	@$(COMPOSE) stop
+stop: ## コンテナを停止します
+	@$(DOCKER) stop $(DOCKER_NAME)
 #
-# コンテナを停止し，upで作成したコンテナ，ネットワーク，ボリューム，イメージを削除
+down: ## コンテナを停止し，upで作成したコンテナ，ネットワーク，ボリューム，イメージを削除
+	@$(DOCKER) rm -f  $(DOCKER_NAME)
+#
+ps: ## コンテナを確認します
+	@$(DOCKER) ps -a
+#
+bash: ## コンテナへログインします
+	@$(DOCKER) exec -it $(DOCKER_NAME) /bin/bash
+#
+# 現在Docker内か外か？を自動判定し分岐します
+# Docker内環境からはローカルで実行します
+# Docker外環境からはDocker環境を立ち上げ、そちらで実行するようにします
+# どちらで実行するか強制したい場合は、ここより下にある、remote***やlocal***などの
+# 接頭語がついたターゲットを使用してください
+#
+build: ## latexからpdfにコンパイルします(環境は自動判別)
+ifndef CONTAINER_ENV
+	make remotebuild
+else
+	make localbuild
+endif
+#
+lint: ## latexをLintにかけます(環境は自動判別)
+ifndef CONTAINER_ENV
+	make remotelint
+else
+	make local-lint
+endif
+clean: ## データ整理(環境は自動判別)
+ifndef CONTAINER_ENV
+	make remoteclean
+else
+	make localclean
+endif
+#
+# コンテナ環境下でのビルド関連ターゲット
+#
+remotebuild: ## コンテナ環境にてlatexからpdfにコンパイルします
+	make remoteclean
+	@$(DOCKER) exec -it $(DOCKER_NAME) make localbuild
+	@$(DOCKER) cp $(DOCKER_NAME):/home/ubuntu/dist .
+#
 # 
-down:
-	@$(COMPOSE) down --rmi all
+remotelint: ## コンテナ環境にてlatexをLintにかけます
+	make remoteclean
+	@$(DOCKER) exec -it $(DOCKER_NAME) make local-lint
 #
-# コンテナ上のデータ整理（いったん全部消して、ローカルから持上）
-# 
-clean:
-	@$(COMPOSE) exec -it beamer-example rm -rf *
-	@$(COMPOSE) cp Makefile beamer-example:/home/user/
-	@$(COMPOSE) cp src beamer-example:/home/user/src
-	@$(COMPOSE) exec -it beamer-example mkdir dist
-#
-# コンテナ上のビルド
-# 
-build:
-	make clean
-	@$(COMPOSE) exec -it beamer-example make localbuild
-	@$(COMPOSE) cp beamer-example:/home/user/dist .
-#
-# コンテナへのログイン
-# 
-bash:
-	@$(COMPOSE) exec -it beamer-example bash
+remoteclean: ## コンテナ上のデータ整理（いったん全部消して、ローカルから持上）
+	make localclean
+	@$(DOCKER) cp ./Makefile  $(DOCKER_NAME):/home/ubuntu/
+	@$(DOCKER) cp README.md $(DOCKER_NAME):/home/ubuntu/
+	@$(DOCKER) cp .textlintrc.json $(DOCKER_NAME):/home/ubuntu/
+	@$(DOCKER) cp VERSION.txt $(DOCKER_NAME):/home/ubuntu/
+	@$(DOCKER) exec -it $(DOCKER_NAME) make localclean
 #
 # ローカルでのビルド関連ターゲット
 #
-localbuild: pdf-files
+localbuild: pdf-files ## ローカル環境下でlatex→pdfにコンパイルします
 
-pdf-files: $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF)))
+pdf-files: $(addprefix dist/,$(addsuffix .pdf,$(DEST_PD
+$(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF))) : $(SRCS3)
+	make localclean
+	make localup
+	cd work
+	@$(LATEXENG)  000-main.tex
+	@$(BIBTEXENG) 000-main
+	@$(LATEXENG)  000-main.tex
+	@$(LATEXENG)  000-main.tex
+	mv 000-main.pdf ../$@
+	cd ..
 
+local-lint: ## ローカル環境下でlatexをlintにかけます
+	npx textlint -f pretty-error README.md $(SRCS) $(DOCS)
+
+localclean: ## ローカル環境の不要ファイルを消します
+	rm -rf  000-main.* work dist; mkdir -p dist work
+
+localup:
+	cp -rL $(SRCDIR)/* work/
+	cp VERSION.txt  work/
+
+distclean: ## ローカル環境の不要ファイルを消し、latexのフォントキャッシュも消します
+	make localclean
+	rm -rf  ltcache
+
+name: ## 生成するスライド名を出力します
+	@echo "DEST_PDF=$(DEST_PDF).pdf"
+=======
 $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF))) : $(SRCS)
 	@$(LATEXENG) src/000-main.tex
 	mv 000-main.pdf $@
