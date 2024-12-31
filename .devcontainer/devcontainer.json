@@ -1,0 +1,12 @@
+{
+  "name": "opencae-slides",
+  "build": {
+	"context": "..",
+	"dockerfile": "../Dockerfile"
+  },
+  "features": {
+	"ghcr.io/guiyomh/features/vim:0": {}
+  },
+  "remoteUser": "ubuntu",
+  "updateRemoteUserUID": true
+}
