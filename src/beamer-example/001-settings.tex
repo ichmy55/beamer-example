@@ -11,7 +11,12 @@
 \usepackage{enumitem}         % リスト環境のレイアウトを制御
 \usepackage{booktabs}         % 表作成
 \usepackage{multirow}         % 表作成時に表を縦結合する
+\usepackage{hhline}           % 表作成時に２重枠線
+\usepackage{array}            % array 環境と tabular 環境の拡張
+\usepackage{nicematrix,booktabs,caption} % 表の上部、中、下部に応じた太さの罫線を提供
+\usepackage{threeparttable}   % 表の直下に脚注をつける
 \usepackage{ulem}             % 打消し線などの文字装飾
+\usepackage{graphicx}         % graphics パッケージの拡張
 \usepackage{tikz}             % TeX 用の描画パッケージ
 \usepackage{
     amsmath, % 環境
@@ -73,6 +78,7 @@
 %
 % 図とキャプションの間の余白
 \setlength\abovecaptionskip{0pt}
+\setlength\belowcaptionskip{0pt}
 %
 % highlight マクロ tasusu.github.io/tikz.html から頂きました
 \newcommand{\highlight}[2][yellow]{\tikz[baseline=(x.base)]{\node[rectangle,rounded corners,fill=#1](x){#2};}}
@@ -88,17 +94,17 @@
 \makeatletter
 \setbeamertemplate{footline}{
     \begin{columns}[totalwidth=160mm]
+      \begin{column}{24.1mm}
+        \includegraphics[width=24.1mm, height=5mm]{images/\logoC}
+      \end{column}
+      \begin{column}{108mm}
+         {\scriptsize \color{cud_lightgray} \insertshortinstitute/\insertshortdate{}(\insertshortauthor - \input{VERSION.txt}) }
+      \end{column}
+      \begin{column}{12mm}
+         {\scriptsize \color{cud_green} \rightline{ \insertframenumber{} / \inserttotalframenumber}}
+      \end{column}
       \begin{column}{15mm}
-        \includegraphics[width=15mm, height=5mm]{work/images/\logoC}
-      \end{column}
-      \begin{column}{104mm}
-         {\scriptsize \color{cud_lightgray} \insertshortinstitute ／ \insertshortdate{} 　(\insertshortauthor) }
-      \end{column}
-      \begin{column}{16mm}
-         {\footnotesize \color{cud_green} \rightline{ \insertframenumber{} / \inserttotalframenumber}}
-      \end{column}
-      \begin{column}{15mm}
-        \includegraphics[width=15mm, height=5mm]{work/images/\logoD}
+        \includegraphics[width=15mm, height=5mm]{images/\logoD}
       \end{column}
     \end{columns}
 }
