@@ -20,6 +20,10 @@ PACKAGE_USE   := 0              # 標準では出来合いパッケージを使�
 LATEXENG := lualatex
 BIBTEXENG := pbibtex
 #
+# Latex エンジン
+#
+LATEXENG := lualatex
+#
 # 作成するスライド名
 #
 DEST_PDF := beamer-example
@@ -34,7 +38,6 @@ DOCS   := $(wildcard  docs/*.md)
 
 #
 # Makefile内で使用するshellを定義
-#
 SHELL=/bin/bash
 
 #
@@ -130,8 +133,7 @@ remoteclean: ## コンテナ上のデータ整理（いったん全部消して�
 #
 localbuild: pdf-files ## ローカル環境下でlatex→pdfにコンパイルします
 
-pdf-files: $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF)))
-
+pdf-files: $(addprefix dist/,$(addsuffix .pdf,$(DEST_PD
 $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF))) : $(SRCS3)
 	make localclean
 	make localup
@@ -159,3 +161,11 @@ distclean: ## ローカル環境の不要ファイルを消し、latexのフォ�
 
 name: ## 生成するスライド名を出力します
 	@echo "DEST_PDF=$(DEST_PDF).pdf"
+=======
+$(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF))) : $(SRCS)
+	@$(LATEXENG) src/000-main.tex
+	mv 000-main.pdf $@
+	rm -f 000-main.*
+
+localclean:
+	rm -f  000-main.* dist/*
