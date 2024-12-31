@@ -12,8 +12,8 @@
 #
 DOCKER := docker
 DOCKER_IMAGE  := ghcr.io/ichmy55/opencae-slides/texcomp:main
-DOCKER_NAME   := opencae-slides
-PACKAGE_USE   := 1              # 標準では出来合いパッケージを使用せず、自前でDockerイメージを作る
+DOCKER_NAME   := beamer-example
+PACKAGE_USE   := 0              # 標準では出来合いパッケージを使用せず、自前でDockerイメージを作る
 #
 # Latex エンジン
 #
@@ -22,7 +22,7 @@ BIBTEXENG := pbibtex
 #
 # 作成するスライド名
 #
-DEST_PDF := opencae-kantou-s-028
+DEST_PDF := beamer-example
 #
 # ソースファイル一覧
 #
