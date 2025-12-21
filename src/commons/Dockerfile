@@ -1,5 +1,5 @@
 #
-# Tex をコンパイルする環境をDocker上に作成する.
+# Tex をコンパイルする環境をDocker上に作成する
 #
 FROM ubuntu:24.04
 
