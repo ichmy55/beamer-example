@@ -1,5 +1,5 @@
 {
-  "name": "opencae-slides",
+  "name": "beamer-examples",
   "build": {
 	"context": "..",
 	"dockerfile": "../Dockerfile"

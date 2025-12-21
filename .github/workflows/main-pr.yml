@@ -1,14 +1,1 @@
-name: main-pull request
-
-on:
-  pull_request:
-    branches:
-      - main
-
-permissions:
-  contents: read
-  pull-requests: write
-
-jobs:
-  textlint-reviewdog:
-    uses: ./.github/workflows/textlint-reviewdog.yml
+../../src/commons/github/workflows/main-pr.yml
