@@ -1,1 +1,10 @@
-../../src/commons/github/workflows/develop-push.yml
+name: Build the PDF at push to development
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  build-pdf:
+    uses: ./.github/workflows/build-pdf.yml
