@@ -10,10 +10,9 @@ dockerとdocker-comopseのインストールをお願いします。
 
 ## Installation
 適当な作業ディレクトリを作成し、本ソースをcloneしてください  
-最新版だけ必要なので、depth=1指定します  
 
 ```
-$ git clone --depth=1 https://github.com/ichmy55/beamer-example.git
+$ git clone https://github.com/ichmy55/beamer-example.git
 ```
 
 ## Directory tree
@@ -34,6 +33,14 @@ make 一発で、docker環境の生成、docker環境へのソース転送、結
 結果ファイルが「dist」ディレクトリに格納されますので、取り出してください
 
 このあと、自分のpdfを作成するためのソースの変更方法などの詳細は、本ソフトで生成されたファイルが[本ソフトの取扱説明書](/dist/beamer-example.pdf)となりますので、参照ください
+
+## Textlint
+<!-- textlint-disable prh -->
+本リポジトリで使用する自動校正にて使用するルールは [リンク先](src/commons/docs/Textlint.md)にて説明しています
+<!-- textlint-enable prh -->
+
+## CI/CD
+本リポジトリで使用するCI/CDにて使用するルールは [リンク先](src/commons/docs/CICD.md)にて説明しています
 
 ## License
 "beamer-example" の各ソースコードは [MIT license](https://ja.wikipedia.org/wiki/MIT_License) で配布します。  
