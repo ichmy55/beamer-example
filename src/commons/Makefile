@@ -26,11 +26,14 @@ include variables.mk
 #
 # ソースファイル一覧
 #
-SRCDIR := src/$(DEST_PDF)
-SRCS   := $(wildcard  $(SRCDIR)/*.tex)  $(wildcard  $(SRCDIR)/*.bst)  $(wildcard  $(SRCDIR)/*.bib)
-SRCS2  := $(wildcard  $(SRCDIR)/images/*)
-SRCS3  := $(SRCS) $(SRCS2)
-DOCS   := $(wildcard  docs/*.md)
+SRCDIR  := src/$(DEST_PDF)
+SRCDIR2 := src/commons
+SRCS    := $(wildcard  $(SRCDIR)/*.tex)  $(wildcard  $(SRCDIR)/*.bst)  $(wildcard  $(SRCDIR)/*.bib)
+SRCS2   := $(wildcard  $(SRCDIR)/images/*)
+SRCS3   := $(wildcard  $(SRCDIR2)/*.tex)
+SRCS4   := $(wildcard  $(SRCDIR2)/images/*)
+SRCS5   := $(SRCS) $(SRCS2) $(SRCS3) $(SRCS4)
+DOCS    := $(wildcard  $(SRCDIR2)/docs/*.md)
 #
 # Makefile内で使用するshellを定義
 SHELL=/bin/bash
@@ -125,7 +128,7 @@ remoteclean: ## コンテナ上のデータ整理（いったん全部消して�
 localbuild: pdf-files ## ローカル環境下でlatex→pdfにコンパイルします
 
 pdf-files: $(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF)))
-$(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF))) : $(SRCS3)
+$(addprefix dist/,$(addsuffix .pdf,$(DEST_PDF))) : $(SRCS5)
 	make localclean
 	make localup
 	cd work
@@ -143,6 +146,8 @@ localclean: ## ローカル環境の不要ファイルを消します
 	rm -rf  000-main.* work dist; mkdir -p dist work
 
 localup:
+	cp -rL $(SRCDIR2)/tex/* work/
+	cp -rL $(SRCDIR2)/images work/
 	cp -rL $(SRCDIR)/* work/
 	cp VERSION.txt  work/
 
