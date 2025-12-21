@@ -19,7 +19,7 @@ $ git clone https://github.com/ichmy55/beamer-example.git
 上記展開すると以下のようなディレクトリ構成になります
 <pre>
 .
-├── README.md.................本リポジトリの説明書です
+├── README.md.................本リポジトリの説明書です．
 ├── Makefile..................Texコンパイル方法を記載したレシピファイル(※下記src/commonsに実体があります)
 ├── Dockerfile................Texコンパイル用のDockerイメージのレシピ(※下記src/commonsに実体があります)
 ├── .github
