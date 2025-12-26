@@ -9,10 +9,11 @@ docker上にソースを転送したうえでコンパイルすることで、�
 dockerのインストールもお願いします。  
 
 ## Installation
-適当な作業ディレクトリを作成し、本ソースをcloneしてください  
+適当な作業ディレクトリを作成し、本ソースをcloneしてください。
+sumoduleを使っているので“--recursive"を忘れずにつけてください
 
 ```
-$ git clone https://github.com/ichmy55/beamer-example.git
+$ git clone --recursive https://github.com/ichmy55/beamer-example.git
 ```
 
 ## Directory tree
@@ -20,13 +21,13 @@ $ git clone https://github.com/ichmy55/beamer-example.git
 <pre>
 .
 ├── README.md.................本リポジトリの説明書です．
-├── Makefile..................Texコンパイル方法を記載したレシピファイル(※下記src/commonsに実体があります)
-├── Dockerfile................Texコンパイル用のDockerイメージのレシピ(※下記src/commonsに実体があります)
+├── Makefile..................Texコンパイル方法を記載したレシピファイル(※下記src/commons1に実体があります)
+├── Dockerfile................Texコンパイル用のDockerイメージのレシピ(※下記src/commons1に実体があります)
 ├── .github
 │   ├── script................reviewdog用スクリプト
 │   └── workflow..............GitHubでのCI/CO設定ファイル.
 ├── src 
-│   ├── commons...............他のプロジェクトでも共通で使うファイルを切り出しています
+│   ├── commons1..............他のプロジェクトでも共通で使うファイルを切り出しています
 │   └── beamer-example........Texソースをこのディレクトリに入れます.
 │         └── images .........Texから読み込む画像ファイルを入れます.
 │    
@@ -43,11 +44,11 @@ make 一発で、docker環境の生成、docker環境へのソース転送、結
 
 ## Textlint
 <!-- textlint-disable prh -->
-本リポジトリで使用する自動校正にて使用するルールは [リンク先](src/commons/docs/Textlint.md)にて説明しています
+本リポジトリで使用する自動校正にて使用するルールは [リンク先](src/commons1/docs/Textlint.md)にて説明しています
 <!-- textlint-enable prh -->
 
 ## CI/CD
-本リポジトリで使用するCI/CDにて使用するルールは [リンク先](src/commons/docs/CICD.md)にて説明しています
+本リポジトリで使用するCI/CDにて使用するルールは [リンク先](src/commons/docs1/CICD.md)にて説明しています
 
 ## License
 "beamer-example" の各ソースコードは [MIT license](https://ja.wikipedia.org/wiki/MIT_License) で配布します。  
