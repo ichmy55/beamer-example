@@ -9,10 +9,11 @@ docker上にソースを転送したうえでコンパイルすることで、�
 dockerのインストールもお願いします。  
 
 ## Installation
-適当な作業ディレクトリを作成し、本ソースをcloneしてください  
+適当な作業ディレクトリを作成し、本ソースをcloneしてください。
+sumoduleを使っているので“--recursive"を忘れずにつけてください
 
 ```
-$ git clone https://github.com/ichmy55/beamer-example.git
+$ git clone --recursive https://github.com/ichmy55/beamer-example.git
 ```
 
 ## Directory tree
