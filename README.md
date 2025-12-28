@@ -44,11 +44,11 @@ make 一発で、docker環境の生成、docker環境へのソース転送、結
 
 ## Textlint
 <!-- textlint-disable prh -->
-本リポジトリで使用する自動校正にて使用するルールは [リンク先](src/commons1/docs/Textlint.md)にて説明しています
+本リポジトリで使用する自動校正にて使用するルールは [リンク先](src/docs/Textlint.md)にて説明しています
 <!-- textlint-enable prh -->
 
 ## CI/CD
-本リポジトリで使用するCI/CDにて使用するルールは [リンク先](src/commons/docs1/CICD.md)にて説明しています
+本リポジトリで使用するCI/CDにて使用するルールは [リンク先](src/docs/CICD.md)にて説明しています
 
 ## License
 "beamer-example" の各ソースコードは [MIT license](https://ja.wikipedia.org/wiki/MIT_License) で配布します。  
