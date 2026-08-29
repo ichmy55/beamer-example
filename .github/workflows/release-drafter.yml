@@ -13,17 +13,17 @@ permissions:
 
 jobs:
   release_draft:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     outputs:
       update_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
-          submodules: 'recursive'
+          submodules: recursive
       - name: create_release
         id:   create_release
-        uses: release-drafter/release-drafter@v6
+        uses: release-drafter/release-drafter@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
