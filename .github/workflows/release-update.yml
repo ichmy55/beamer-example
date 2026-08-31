@@ -25,11 +25,10 @@ jobs:
         with:
           name: dest_pdf
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: svenstaro/upload-release-action@v2
         with:
-          upload_url: ${{ inputs.upload_url }}
-          asset_path: ./${{ inputs.name_pdf }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/${{ inputs.name_pdf }}
           asset_name: ${{ inputs.name_pdf }}
-          asset_content_type: application/pdf
+          tag: ${{ github.ref }}
+          overwrite: true
