@@ -26,5 +26,5 @@ jobs:
     needs: [release-drafter,build-pdf]
     uses: ./.github/workflows/release-update.yml
     with:
-      upload_url:  ${{ needs.release-drafter.outputs.update_url }}
+      release_id:  ${{ needs.release-drafter.outputs.release_id }}
       name_pdf:    ${{ needs.build-pdf.outputs.name_pdf }}

@@ -7,8 +7,8 @@ on:
         description: Name of the pdf
         required: true
         type: string
-      upload_url:
-        description: Upload url of the pdf
+      release_id:
+        description: Upload id of the pdf
         required: true
         type: string
 
@@ -30,5 +30,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: dist/${{ inputs.name_pdf }}
           asset_name: ${{ inputs.name_pdf }}
-          tag: ${{ github.ref }}
+          release_id: ${{ inputs.release_id }}
           overwrite: true
