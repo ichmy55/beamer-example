@@ -15,7 +15,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: "Checkout  repository"
+      - name: "Checkout repository"
         uses: actions/checkout@v7
         with:
           submodules: true
