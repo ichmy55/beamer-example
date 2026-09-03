@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-26.04
     outputs:
       release_id: ${{ steps.create_release.outputs.id }}
+      tag_name:   ${{ steps.create_release.outputs.tag_name }}
     steps:
       - name: checkout
         uses: actions/checkout@v7
