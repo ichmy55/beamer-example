@@ -30,5 +30,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ inputs.name_pdf }}
           asset_name: ${{ inputs.name_pdf }}
+          tag:        ${{ inputs.tag_name }}
           release_id: ${{ inputs.release_id }}
           overwrite: true

@@ -27,4 +27,5 @@ jobs:
     uses: ./.github/workflows/release-update.yml
     with:
       release_id:  ${{ needs.release-drafter.outputs.release_id }}
+      tag_name:    ${{ needs.release-drafter.outputs.tag_name }}
       name_pdf:    ${{ needs.build-pdf.outputs.name_pdf }}
