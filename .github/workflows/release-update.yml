@@ -28,7 +28,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/${{ inputs.name_pdf }}
+          file: ${{ inputs.name_pdf }}
           asset_name: ${{ inputs.name_pdf }}
           release_id: ${{ inputs.release_id }}
           overwrite: true
