@@ -44,14 +44,15 @@ jobs:
       - name: "Overwrite the VERSION.txt"
         env:
           RESULT: '${{ steps.get_tag.outputs.result }}'
-        run: echo $RESULT > VERSION.txt
+        run: echo "$RESULT" > VERSION.txt
 
       - name: "build PDF"
         run:  make localbuild
+
       - name: get the pdf name
         id: nameofpdf
-        run:  |
-          make name  >> $GITHUB_OUTPUT
+        run:  make name  >> "$GITHUB_OUTPUT"
+
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v7
         with:
