@@ -1,4 +1,4 @@
-name: testlint at PR to development
+name: develop pull request
 
 on:
   pull_request:
@@ -10,5 +10,9 @@ permissions:
   pull-requests: write
 
 jobs:
+  actionlint-reviewdog:
+    uses: ./.github/workflows/actionlint-reviewdog.yml
+
   textlint-reviewdog:
+    needs: [actionlint-reviewdog]
     uses: ./.github/workflows/textlint-reviewdog.yml
