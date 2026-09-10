@@ -1,3 +1,5 @@
 dist/
 work/
-ltcache/
+npm/
+.texlive20??/
+.bash_histroy
