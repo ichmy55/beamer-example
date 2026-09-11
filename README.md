@@ -1,4 +1,10 @@
 # beamer-example
+[![Build Status](https://github.com/checkmake/checkmake/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/checkmake/checkmake/actions)
+[![GitHub release](https://img.shields.io/github/release/ichmy55/commons1.svg)](https://GitHub.com/ichmy55/commons1/releases/)
+[![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
+[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
+
+## Overview
 "beamer-example" は、自分の環境をなるだけ汚したくない方にも、beamerをお使いいただくための環境例です  
 docker上にソースを転送したうえでコンパイルすることで、母艦の環境を汚しません
 
