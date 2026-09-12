@@ -1,4 +1,10 @@
 # beamer-example
+[![Build Status](https://github.com/ichmy55/beamer-example/actions/workflows/main-push.yml/badge.svg)](https://github.com/ichmy55/beamer-example/actions)
+[![GitHub release](https://img.shields.io/github/release/ichmy55/beamer-example.svg)](https://GitHub.com/ichmy55/cbeamer-example/releases/)
+[![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
+[![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
+
+## Overview
 "beamer-example" は、自分の環境をなるだけ汚したくない方にも、beamerをお使いいただくための環境例です  
 docker上にソースを転送したうえでコンパイルすることで、母艦の環境を汚しません
 
@@ -20,21 +26,23 @@ $ git clone --recursive https://github.com/ichmy55/beamer-example.git
 上記展開すると以下のようなディレクトリ構成になります
 <pre>
 .
-├── README.md.................本リポジトリの説明書です．
-├── Makefile..................Texコンパイル方法を記載したレシピファイル(※下記src/commons1に実体があります)
-├── Dockerfile................Texコンパイル用のDockerイメージのレシピ(※下記src/commons1に実体があります)
+├── README.md..............本リポジトリの説明書です．
+├── Makefile...............Texコンパイル方法を記載したレシピファイル(※下記src/commons1に実体があります)
+├── variables.mk...........Makefileの(各プロジェクト毎の差分を示した)設定ファイル
+├── Dockerfile.............Texコンパイル用のDockerイメージのレシピ(※下記src/commons1に実体があります)
 ├── .github
-│   ├── script................reviewdog用スクリプト
-│   └── workflow..............GitHubでのCI/CO設定ファイル.
+│   │......................GitHubでのCI/CO設定ファイル.
+│   ├── script.............reviewdog用スクリプト
+│   └── workflow...........GitHubでのCI/COスクリプト
 ├── src 
-│   ├── commons1..............他のプロジェクトでも共通で使うファイルを切り出しています
-│   └── beamer-example........Texソースをこのディレクトリに入れます.
-│         └── images .........Texから読み込む画像ファイルを入れます.
+│   ├── commons1...........他のプロジェクトでも共通で使うファイルを切り出しています
+│   ├── commons2...........他のプロジェクトでも共通で使うファイルを切り出しています
+│   └── beamer-example.....Texソースをこのディレクトリに入れます.
+│         └── images ......Texから読み込む画像ファイルを入れます.
 │    
-├── dist......................このディレクトリに結果pdfが生成されます.Make時に生成されます.
-├── work......................ワーク用です.Make時に生成されます.
-└── ltcache...................Latexのフォントキャッシュ用です.コンテナUp時に生成されます.(ローカル環境時)
-                              ※ コンテナ内部では texlive標準の~/.texlive2023 以下にキャッシュが置かれます
+├── dist...................このディレクトリに結果pdfが生成されます.Make時に生成されます.
+├── work...................ワーク用です.Make時に生成されます.
+└── .texlive2025...........Latexのフォントキャッシュ用です.コンテナUp時に生成されます.
 </pre>
 ## Usage
 make 一発で、docker環境の生成、docker環境へのソース転送、結果pdf生成し、同ファイルをdocker環境から引き出すところまで自動でやります  
