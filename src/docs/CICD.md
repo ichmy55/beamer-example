@@ -21,14 +21,17 @@
 
 (2) 実施内容設定ファイル  
 具体的な実施内容は,以下ファイルに記載しています.  
-|                        |                                                   | 起動元           |         |         |           |
-| :--------------------- | :------------------------------------------------ | :------: | :---------------:| :-----: | :-------: |
-| ファイル名             | 内容                                              |develop-pr| develop-<br>push | main-pr | main-push | 
-| build-pdf.yml          | PDFファイルをbuildします                          |          | 〇              |         | 〇        |
-| textlint-reviewdog.yml | textlint実施し、問題があればPRにコメントを加えます|   〇     |                 |  〇     |           |
-| package-textcomp.yml   | PDFファイルのbuild用のDocker imageを生成します    |          |                 |         | (※注1)    |
-| release-drafter.yml    | リリースを作成し、バージョンを更新します          |          |                 |         | 〇        |
-| release-update.yml     | 上記リリースにPDFファイルを追記します             |          |                 |         | 〇        |
+|                          |                                                     | 起動元           |         |         |           |
+| :----------------------- | :-------------------------------------------------- | :------: | :---------------:| :-----: | :-------: |
+| ファイル名               | 内容                                                |develop-pr| develop-<br>push | main-pr | main-push | 
+| build-pdf.yml            | PDFファイルをbuildします                            |          | 〇              |         | 〇        |
+| actionlint-reviewdog.yml | actionlint実施し、問題があればPRにコメントを加えます|   〇     |                 |  〇     |           |
+| hadolint-reviewdog.yml   | hadolint実施し、問題があればPRにコメントを加えます  |   〇     |                 |  〇     |           |
+| checkmake-action.yml     | checkmakeを実施します                               |   〇     |                 |  〇     |           |
+| textlint-reviewdog.yml   | textlint実施し、問題があればPRにコメントを加えます  |   〇     |                 |  〇     |           |
+| package-textcomp.yml     | PDFファイルのbuild用のDocker imageを生成します      |          |                 |         | (※注1)    |
+| release-drafter.yml      | リリースを作成し、バージョンを更新します            |          |                 |         | 〇        |
+| release-update.yml       | 上記リリースにPDFファイルを追記します               |          |                 |         | 〇        |
 
 (※注1)：beamer-exampleレポジトリでPDFファイルbuild用のDockerfileが変更されたときのみ走ります.  
 
