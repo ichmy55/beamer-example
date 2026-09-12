@@ -28,7 +28,7 @@ $ git clone --recursive https://github.com/ichmy55/beamer-example.git
 .
 ├── README.md..............本リポジトリの説明書です．
 ├── Makefile...............Texコンパイル方法を記載したレシピファイル(※下記src/commons1に実体があります)
-├── variables.mk...........Makefileの(各レポジトリ毎の差分を示した)設定ファイル
+├── variables.mk...........Makefileの(各プロジェクト毎の差分を示した)設定ファイル
 ├── Dockerfile.............Texコンパイル用のDockerイメージのレシピ(※下記src/commons1に実体があります)
 ├── .github
 │   │......................GitHubでのCI/CO設定ファイル.

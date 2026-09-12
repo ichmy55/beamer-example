@@ -39,6 +39,8 @@
 上記実施に必要な設定ファイルは,以下に記載しています.  
 | ファイル名           | 内容                          | 
 | :------------------- | :---------------------------- |
+| actionlint.yml       | actionlint用設定ファイル      |
+| checkmake.ini        | checkmake用設定ファイル       |
 | dependabot.yml       | dependabot用設定ファイル      |
 | release-drafter.yml  | release-drafter用設定ファイル |
 
