@@ -23,24 +23,16 @@ jobs:
             runner: ubuntu-26.04-arm
     runs-on: ${{ matrix.runner }}
     steps:
-      - id:bulld
+      - name: "Docker ビルド & プッシュ"
         uses: docker/build-push-action@v7
         with:
           platforms: ${{ matrix.platform }}
-          # 2 つのアーキテクチャが同じキャッシュを上書きし合わないように scope を分ける
-          cache-from: type=gha,scope=${{ matrix.platform }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.platform }}
-          # この時点ではタグを付けずに push し、digest を後続のジョブへ渡す
           outputs: type=image,name=<registry>/<repo>,push-by-digest=true,name-canonical=true,push=true
-          # ... digest をファイルに書き出して artifact にアップロード
 
   merge:
     needs: build
-    # マニフェストをまとめるだけなので amd64 のランナーで十分
     runs-on: ubuntu-latest
     steps:
-      # ... AWS 認証 / ECR ログイン / artifact から digest を取得
-      # ... docker/metadata-action でタグを生成 (DOCKER_METADATA_OUTPUT_JSON)
       - name: Create manifest list and push
         working-directory: /tmp/digests
         run: |
